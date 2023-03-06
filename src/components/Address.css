@@ -1,0 +1,73 @@
+.address {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 80%;
+    margin: 25px auto;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px white;
+}
+
+.address img {
+    width: 50px;
+    height: 50px;
+}
+
+.addressInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.addressInfo p {
+    color: #f8941d;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.addressInfo hr {
+    height: 2px;
+    width: 110px;
+    background-color: green;
+    border: none;
+}
+
+.info {
+    text-align: start;
+    margin-left: 20px;
+}
+
+.info h3, .info h3 small {
+    color: greenyellow;
+}
+
+.addressInfo small {
+    color: white;
+    font-style: italic;
+}
+
+.addressBtn {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.btnEdit, .btnDelete {
+    margin: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btnEdit {
+    background-color: #f8941d;
+}
+
+.btnDelete {
+    background-color: red;
+}
+
