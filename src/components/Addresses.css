@@ -7,10 +7,18 @@
     box-shadow: 0 0 10px white;
 }
 
-.error {
-    color: red;
+.error, .loading {
     font-weight: bold;
     font-size: 20px;
     padding-top: 50px;
     padding-bottom: 50px;
+}
+
+.error {
+    color: red;
+}
+
+.loading {
+    color: lime;
+    font-style: italic;
 }
