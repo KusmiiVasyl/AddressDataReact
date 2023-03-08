@@ -6,7 +6,8 @@
     box-shadow: 0 0 10px white;
 }
 
-label {
+.formAddress label, .formAddress select {
     display: block;
-    margin: 10px;
+    margin: 10px auto;
 }
+

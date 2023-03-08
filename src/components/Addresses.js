@@ -4,54 +4,75 @@ import './Addresses.css'
 import FormAddress from "./FormAddress";
 
 
+// const ADDRESSES_URL = 'https://my.api.mockaroo.com/address.json?key=c2449c70'
+
 export default function Addresses() {
-    const ADDRESSES_URL = 'https://my.api.mockaroo.com/address.json?key=c2449c70'
-    const [addresses, setAddresses] = useState([])
-    const [error, setError] = useState('')
-    const [isLoading, setIsLoading] = useState(true)
+    const [addresses, setAddresses] = useState(addressesTemp)
+    const [addressToEdit, setAddressToEdit] = useState(null)
+    // const [error, setError] = useState('')
+    // const [isLoading, setIsLoading] = useState(true)
+    //
+    // useEffect(() => {
+    //     fetch(ADDRESSES_URL)
+    //         .then((result) => result.json())
+    //         .then((addresses) => setAddresses(addresses))
+    //         .catch((error) => setError(error.message))
+    //         .finally(() => setIsLoading(false))
+    // }, [])
 
-    useEffect(() => {
-        fetch(ADDRESSES_URL)
-            .then((result) => result.json())
-            .then((addresses) => setAddresses(addresses))
-            .catch((error) => setError(error.message))
-            .finally(()=> setIsLoading(false))
-    }, [])
-
-    if(isLoading){
-        return (
-            <>
-                <h1>Addresses</h1>
-                <div className="addresses">
-                    <p className="loading">Loading...</p>
-                </div>
-            </>
-        )
+    const addAddressHandler = (newAddress) => {
+        newAddress.id = addresses[addresses.length - 1].id + 1
+        setAddresses([...addresses, newAddress])
     }
 
-    if (error) {
-        return (
-            <>
-                <h1>Addresses</h1>
-                <div className="addresses">
-                    <p className="error">Error: {error}</p>
-                </div>
-            </>
-        )
+    const deleteAddressHandler = (idAddress) => {
+        setAddresses(addresses.filter(address => address.id !== idAddress))
+    }
+
+    // if (isLoading) {
+    //     return (
+    //         <>
+    //             <div className="addresses">
+    //                 <p className="loading">Loading...</p>
+    //             </div>
+    //         </>
+    //     )
+    // }
+    //
+    // if (error) {
+    //     return (
+    //         <>
+    //             <div className="addresses">
+    //                 <p className="error">Error: {error}</p>
+    //             </div>
+    //         </>
+    //     )
+    // }
+
+    const editAddressHandler = (address) => {
+        setAddressToEdit(address)
+        // setAddresses(addresses.map(address => {
+        //     if(address.id === newAddress.id){
+        //         return newAddress
+        //     } else {
+        //         return address
+        //     }
+        // }))
     }
 
     return (
         <>
-            <h1>Addresses</h1>
             <div className="addresses">
-                {addresses.map((address) => <Address key={address.id} {...address}/>)}
+                {addresses.map((address) => <Address key={address.id} address={address}
+                                                     editAddress={editAddressHandler}
+                                                     deleteAddress={deleteAddressHandler}/>)}
             </div>
-            <FormAddress/>
+            <FormAddress addAddress={addAddressHandler} editAddress={addressToEdit}/>
         </>
     )
 }
 
-const addresses = [
+const addressesTemp = [
     {
         "id": 1,
         "country": "Russia",
@@ -106,48 +127,6 @@ const addresses = [
         "city": "Cambanugoy",
         "street": "478 Haas Street",
         "isHomeAddress": true
-    }, {
-        "id": 10,
-        "country": "China",
-        "city": "Dongshui",
-        "street": "5 Norway Maple Place",
-        "isHomeAddress": false
-    }, {
-        "id": 11,
-        "country": "Egypt",
-        "city": "Būsh",
-        "street": "28804 Killdeer Circle",
-        "isHomeAddress": false
-    }, {
-        "id": 12,
-        "country": "United States",
-        "city": "Anniston",
-        "street": "8848 Boyd Circle",
-        "isHomeAddress": false
-    }, {
-        "id": 13,
-        "country": "Hungary",
-        "city": "Budapest",
-        "street": "94 Ridgeway Park",
-        "isHomeAddress": false
-    }, {
-        "id": 14,
-        "country": "China",
-        "city": "Shiyang",
-        "street": "4 Sage Road",
-        "isHomeAddress": true
-    }, {
-        "id": 15,
-        "country": "Uruguay",
-        "city": "Barra de Carrasco",
-        "street": "59146 Little Fleur Lane",
-        "isHomeAddress": false
-    }, {
-        "id": 16,
-        "country": "China",
-        "city": "Shijiao",
-        "street": "1 Algoma Way",
-        "isHomeAddress": false
     }]
 
 

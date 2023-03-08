@@ -2,7 +2,7 @@ import './Address.css'
 
 
 export default function Address(props) {
-    const {id, country, city, street, isHomeAddress} = props
+    const {id, country, city, street, isHomeAddress} = props.address
     const logoHome = require('../images/icon-home.png')
     const logoOffice = require('../images/icon-office.png')
 
@@ -23,8 +23,8 @@ export default function Address(props) {
                 </div>
             </div>
             <div className="addressBtn">
-                <button className="btnEdit">EDIT</button>
-                <button className="btnDelete">DELETE</button>
+                <button className="btnEdit" onClick={()=>props.editAddress(props.address)}>EDIT</button>
+                <button className="btnDelete" onClick={()=>props.deleteAddress(id)}>DELETE</button>
             </div>
         </div>
     )
