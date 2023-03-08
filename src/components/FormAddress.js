@@ -11,11 +11,17 @@ export default function FormAddress({addAddress, editAddress}) {
     const [city, setCity] = useState('')
     const [street, setStreet] = useState('')
     const [typeAddress, setTypeAddress] = useState(AddressType.OFFICE)
+    const [messageAddressAction, setMessageAddressAction] = useState('')
 
     let selectTypeAddress = document.getElementById("selectTypeAddress")
 
-    useEffect(()=>{
-        if(editAddress) {
+    useEffect(() => {
+        if (editAddress) {
+            if (!isNaN(editAddress.id)) {
+                setMessageAddressAction(`Address id: ${editAddress.id} - is being edited now!`)
+            } else {
+                setMessageAddressAction('')
+            }
             setCountry(editAddress.country)
             setCity(editAddress.city)
             setStreet(editAddress.street)
@@ -30,13 +36,15 @@ export default function FormAddress({addAddress, editAddress}) {
         setStreet('')
         setTypeAddress(AddressType.OFFICE)
         selectTypeAddress.value = AddressType.OFFICE
+        setMessageAddressAction('')
+        editAddress.id = NaN
     }
 
     const submitHandler = (event) => {
         event.preventDefault()
         if (country && city && street) {
             addAddress({
-                id: NaN,
+                id: editAddress ? editAddress.id : NaN,
                 country,
                 city,
                 street,
@@ -46,24 +54,52 @@ export default function FormAddress({addAddress, editAddress}) {
         }
     }
 
+    const checkFormInput = () => {
+        if (!country && !city && !street && !messageAddressAction) {
+            setMessageAddressAction("Creating new address...")
+        }
+    }
+
+    const onChangeFormInput = (nameInput, text) => {
+        switch (nameInput) {
+            case "country":
+                setCountry(text)
+                break
+            case "city":
+                setCity(text)
+                break
+            case "street":
+                setStreet(text)
+                break
+        }
+        checkFormInput()
+    }
+
     return (
         <>
             <h3>Form address</h3>
             <form onSubmit={submitHandler} className="formAddress">
-                <label>Country:
-                    <input type="text" value={country} onChange={(e) => setCountry(e.target.value)}/>
-                </label>
-                <label>City:
-                    <input type="text" value={city} onChange={(e) => setCity(e.target.value)}/>
-                </label>
-                <label>Street:
-                    <input type="text" value={street} onChange={(e) => setStreet(e.target.value)}/>
-                </label>
-                <select id="selectTypeAddress" onChange={(e) => setTypeAddress(e.target.value)}>
-                    <option value={AddressType.OFFICE}>Office</option>
-                    <option value={AddressType.HOME}>Home</option>
-                </select>
-                <button type="submit">Submit</button>
+                <h3>{messageAddressAction}</h3>
+                <div className="formBlock">
+                    <div className="formBlockText">
+                        <p>Country:</p>
+                        <p>City:</p>
+                        <p>Street:</p>
+                        <p>Type Address:</p>
+                    </div>
+                    <div className="formBlockInput">
+                        <input type="text" value={country}
+                               onChange={(e) => onChangeFormInput("country", e.target.value)}/>
+                        <input type="text" value={city} onChange={(e) => onChangeFormInput("city", e.target.value)}/>
+                        <input type="text" value={street}
+                               onChange={(e) => onChangeFormInput("street", e.target.value)}/>
+                        <select id="selectTypeAddress" onChange={(e) => setTypeAddress(e.target.value)}>
+                            <option value={AddressType.OFFICE}>Office</option>
+                            <option value={AddressType.HOME}>Home</option>
+                        </select>
+                        <button type="submit">Submit</button>
+                    </div>
+                </div>
             </form>
         </>
     )

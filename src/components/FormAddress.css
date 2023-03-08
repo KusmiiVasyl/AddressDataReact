@@ -11,3 +11,55 @@
     margin: 10px auto;
 }
 
+.formAddress h3 {
+    font-size: 18px;
+    font-style: italic;
+    font-weight: bold;
+    color: greenyellow;
+}
+
+.formAddress .formBlock {
+    display: flex;
+    flex-direction: row;
+}
+
+.formAddress .formBlockText {
+    text-align: right;
+    width: 30%;
+    margin-right: 10px;
+}
+
+.formAddress .formBlockInput {
+    width: 70%;
+    text-align: center;
+}
+
+.formAddress select,
+.formAddress input,
+.formAddress .formBlockText p{
+    display: block;
+    margin: 5px auto;
+    height: 30px;
+    width: 100%;
+}
+.formAddress .formBlockText p {
+    font-size: 14px;
+    margin-top: 9px;
+}
+
+.formAddress button {
+    width: 40%;
+    margin: 10px;
+    padding: 5px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 18px;
+}
+
+.formAddress button:hover{
+    opacity: 70%;
+    transition: all .2s ease-in-out;
+}
+

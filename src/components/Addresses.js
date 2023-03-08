@@ -21,12 +21,23 @@ export default function Addresses() {
     // }, [])
 
     const addAddressHandler = (newAddress) => {
-        newAddress.id = addresses[addresses.length - 1].id + 1
-        setAddresses([...addresses, newAddress])
+        if(!newAddress.id) {
+            newAddress.id = addresses[addresses.length - 1].id + 1
+            setAddresses([...addresses, newAddress])
+            return
+        }
+        setAddresses(addresses.map(address => {
+            return (address.id === newAddress.id) ? newAddress : address
+        }))
+    }
+
+    const editAddressHandler = (address) => {
+        setAddressToEdit(address)
     }
 
     const deleteAddressHandler = (idAddress) => {
         setAddresses(addresses.filter(address => address.id !== idAddress))
+        setAddressToEdit({id:NaN, country: '', city:'', street:'', isHomeAddress: false })
     }
 
     // if (isLoading) {
@@ -48,17 +59,6 @@ export default function Addresses() {
     //         </>
     //     )
     // }
-
-    const editAddressHandler = (address) => {
-        setAddressToEdit(address)
-        // setAddresses(addresses.map(address => {
-        //     if(address.id === newAddress.id){
-        //         return newAddress
-        //     } else {
-        //         return address
-        //     }
-        // }))
-    }
 
     return (
         <>
