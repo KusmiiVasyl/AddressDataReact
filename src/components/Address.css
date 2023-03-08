@@ -56,11 +56,12 @@
 
 .btnEdit, .btnDelete {
     margin: 5px;
-    padding-right: 10px;
-    padding-left: 10px;
+    padding: 5px;
     color: black;
     font-weight: bold;
     cursor: pointer;
+    border: none;
+    border-radius: 10px;
 }
 
 .btnEdit {
@@ -69,5 +70,11 @@
 
 .btnDelete {
     background-color: red;
+}
+
+.btnEdit:hover,
+.btnDelete:hover{
+    opacity: 70%;
+    transition: all .2s ease-in-out;
 }
 
