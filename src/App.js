@@ -1,11 +1,11 @@
 import './App.css';
-import Addresses from "./components/Addresses";
+import ListAddresses from "./components/ListAddresses";
 
 function App() {
     return (
         <div className="App">
             <h1>Addresses</h1>
-            <Addresses/>
+            <ListAddresses/>
         </div>
     );
 }

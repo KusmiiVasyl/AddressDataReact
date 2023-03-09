@@ -1,12 +1,12 @@
 import {useEffect, useState} from "react";
 import Address from "./Address";
-import './Addresses.css'
+import './ListAddresses.css'
 import FormAddress from "./FormAddress";
 
 
 const ADDRESSES_URL = 'https://my.api.mockaroo.com/address.json?key=c2449c70'
 
-export default function Addresses() {
+export default function ListAddresses() {
     const [addresses, setAddresses] = useState([])
     const [addressToEdit, setAddressToEdit] = useState(null)
     const [error, setError] = useState('')
@@ -21,7 +21,7 @@ export default function Addresses() {
     }, [])
 
     const addAddressHandler = (newAddress) => {
-        if(!newAddress.id) {
+        if (!newAddress.id) {
             newAddress.id = addresses[addresses.length - 1].id + 1
             setAddresses([...addresses, newAddress])
             return
@@ -37,7 +37,7 @@ export default function Addresses() {
 
     const deleteAddressHandler = (idAddress) => {
         setAddresses(addresses.filter(address => address.id !== idAddress))
-        setAddressToEdit({id:NaN, country: '', city:'', street:'', isHomeAddress: false })
+        setAddressToEdit({id: NaN, country: '', city: '', street: '', isHomeAddress: false})
     }
 
     if (isLoading) {

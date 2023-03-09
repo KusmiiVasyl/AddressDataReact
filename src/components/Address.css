@@ -58,6 +58,7 @@
     margin: 5px;
     padding: 5px;
     color: black;
+    opacity: 70%;
     font-weight: bold;
     cursor: pointer;
     border: none;
@@ -74,7 +75,14 @@
 
 .btnEdit:hover,
 .btnDelete:hover{
-    opacity: 70%;
-    transition: all .2s ease-in-out;
+    transition: transform 0.3s;
 }
+
+.btnEdit:hover,
+.btnDelete:hover{
+    opacity: unset;
+    transform: scale(1.3);
+}
+
+
 
