@@ -3,8 +3,8 @@ import './Address.css'
 
 export default function Address(props) {
     const {id, country, city, street, isHomeAddress} = props.address
-    const logoHome = require('../images/icon-home.png')
-    const logoOffice = require('../images/icon-office.png')
+    const logoHome = require('../../images/icon-home.png')
+    const logoOffice = require('../../images/icon-office.png')
 
     return (
         <div className="address">

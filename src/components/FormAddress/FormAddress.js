@@ -1,5 +1,5 @@
 import './FormAddress.css'
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useState} from "react";
 
 const AddressType = {
     HOME: 'HOME',
@@ -48,7 +48,7 @@ export default function FormAddress({addAddress, editAddress}) {
                 country,
                 city,
                 street,
-                isHomeAddress: typeAddress == AddressType.HOME ? true : false
+                isHomeAddress: typeAddress === AddressType.HOME ? true : false
             })
             resetFormValues()
         }

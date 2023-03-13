@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react";
-import Address from "./Address";
+import Address from "../Address/Address";
 import './ListAddresses.css'
-import FormAddress from "./FormAddress";
+import FormAddress from "../FormAddress/FormAddress";
 
 
-const ADDRESSES_URL = 'https://my.api.mockaroo.com/address.json?key=c2449c70'
+const ADDRESSES_URL = 'https://64048a123bdc59fa8f3b247f.mockapi.io/address/api'
 
 export default function ListAddresses() {
     const [addresses, setAddresses] = useState([])
@@ -13,7 +13,7 @@ export default function ListAddresses() {
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        fetch(ADDRESSES_URL)
+        fetch(ADDRESSES_URL, {method:'GET'})
             .then((result) => result.json())
             .then((addresses) => setAddresses(addresses))
             .catch((error) => setError(error.message))

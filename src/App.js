@@ -1,5 +1,5 @@
 import './App.css';
-import ListAddresses from "./components/ListAddresses";
+import ListAddresses from "./components/ListAddresses/ListAddresses";
 
 function App() {
     return (
