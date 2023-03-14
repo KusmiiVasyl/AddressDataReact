@@ -67,7 +67,7 @@ export function ListAddresses() {
                                                      editAddress={editAddressHandler}
                                                      deleteAddress={deleteAddressHandler}/>)}
             </div>
-            <FormAddress addAddress={addAddressHandler} editAddress={addressToEdit}/>
+            {/*<FormAddress addAddress={addAddressHandler} editAddress={addressToEdit}/>*/}
         </>
     )
 }

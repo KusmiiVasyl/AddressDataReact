@@ -2,13 +2,16 @@ import './Menu.css'
 import {NavLink} from "react-router-dom";
 
 
-export const Menu = ()=> {
+export const Menu = () => {
 
     return (
-        <nav >
-            <NavLink to="">Home</NavLink>
-            <NavLink to="">Addresses</NavLink>
-            <NavLink to="">FormAddress</NavLink>
-        </nav>
+        <>
+            <nav className="navAddressMenu">
+                <NavLink to=".">Home</NavLink>
+                <NavLink to="addresses">Addresses</NavLink>
+                <NavLink to="formAddress">FormAddress</NavLink>
+            </nav>
+            <hr/>
+        </>
     )
 }

@@ -1,0 +1,19 @@
+.navAddressMenu {
+    margin: 15px auto;
+    padding: 5px 15px;
+    background-color: darkslategray;
+    width: fit-content;
+    border-radius: 10px;
+}
+
+.navAddressMenu a {
+    color: lightblue;
+    font-size: 30px;
+    margin: 15px ;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.navAddressMenu .active {
+    color: lightyellow;
+}
