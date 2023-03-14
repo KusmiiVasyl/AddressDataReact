@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react";
 import {Address} from "../Address";
 import './ListAddresses.css'
-import {FormAddress} from "../FormAddress";
+import {AddressApi} from "../../api/addressApi";
 
 
-const ADDRESSES_URL = 'https://64048a123bdc59fa8f3b247f.mockapi.io/address/api'
+const ADDRESSES_URL = 'https://64048a123bdc59fa8f3b247f.mockapi.io/api/address'
 
 export function ListAddresses() {
     const [addresses, setAddresses] = useState([])
@@ -13,8 +13,7 @@ export function ListAddresses() {
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        fetch(ADDRESSES_URL, {method:'GET'})
-            .then((result) => result.json())
+        AddressApi.getAll()
             .then((addresses) => setAddresses(addresses))
             .catch((error) => setError(error.message))
             .finally(() => setIsLoading(false))
