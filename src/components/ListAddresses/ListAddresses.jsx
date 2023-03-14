@@ -1,12 +1,12 @@
 import {useEffect, useState} from "react";
-import Address from "../Address/Address";
+import {Address} from "../Address";
 import './ListAddresses.css'
-import FormAddress from "../FormAddress/FormAddress";
+import {FormAddress} from "../FormAddress";
 
 
 const ADDRESSES_URL = 'https://64048a123bdc59fa8f3b247f.mockapi.io/address/api'
 
-export default function ListAddresses() {
+export function ListAddresses() {
     const [addresses, setAddresses] = useState([])
     const [addressToEdit, setAddressToEdit] = useState(null)
     const [error, setError] = useState('')

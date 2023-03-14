@@ -6,7 +6,7 @@ const AddressType = {
     OFFICE: 'OFFICE'
 }
 
-export default function FormAddress({addAddress, editAddress}) {
+export function FormAddress({addAddress, editAddress}) {
     const [country, setCountry] = useState('')
     const [city, setCity] = useState('')
     const [street, setStreet] = useState('')

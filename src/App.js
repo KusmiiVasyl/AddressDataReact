@@ -1,11 +1,10 @@
 import './App.css';
-import ListAddresses from "./components/ListAddresses/ListAddresses";
+import {MainLayout} from "./components/layouts/MainLayout";
 
 function App() {
     return (
         <div className="App">
-            <h1>Addresses</h1>
-            <ListAddresses/>
+            <MainLayout/>
         </div>
     );
 }

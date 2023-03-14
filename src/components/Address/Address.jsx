@@ -1,7 +1,7 @@
 import './Address.css'
 
 
-export default function Address(props) {
+export function Address(props) {
     const {id, country, city, street, isHomeAddress} = props.address
     const logoHome = require('../../images/icon-home.png')
     const logoOffice = require('../../images/icon-office.png')
