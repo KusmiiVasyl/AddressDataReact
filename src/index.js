@@ -4,9 +4,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from "./App";
-import {Home} from "./components/HomePage";
 import {ListAddresses} from "./components/ListAddresses";
 import {FormAddress} from "./components/FormAddress";
+import {NotFound} from "./components/NotFound";
+import {HomePage} from "./components/HomePage";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,9 +15,10 @@ root.render(
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<App/>}>
-                    <Route index element={<Home/>}/>
+                    <Route index element={<HomePage/>}/>
                     <Route path="addresses" element={<ListAddresses/>}/>
                     <Route path="formAddress" element={<FormAddress/>}/>
+                    <Route path="*" element={<NotFound/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>
