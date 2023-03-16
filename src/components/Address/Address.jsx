@@ -1,8 +1,9 @@
 import './Address.css'
+import {AddressType} from "../../enums/AddressType";
 
 
 export function Address(props) {
-    const {id, country, city, street, isHomeAddress} = props.address
+    const {id, country, city, street, typeAddress} = props.address
     const logoHome = require('../../images/icon-home.png')
     const logoOffice = require('../../images/icon-office.png')
 
@@ -10,7 +11,7 @@ export function Address(props) {
         <div className="address">
             <div className="addressInfo">
                 <div>
-                    {isHomeAddress ?
+                    {typeAddress === AddressType.HOME ?
                         <img src={logoHome} alt="Logo Home"/> :
                         <img src={logoOffice} alt="Logo Office"/>}
                 </div>
@@ -23,7 +24,7 @@ export function Address(props) {
                 </div>
             </div>
             <div className="addressBtn">
-                <button className="btnEdit" onClick={()=>props.editAddress(props.address)}>EDIT</button>
+                <button className="btnEdit" onClick={()=>props.editAddress(id)}>EDIT</button>
                 <button className="btnDelete" onClick={()=>props.deleteAddress(id)}>DELETE</button>
             </div>
         </div>

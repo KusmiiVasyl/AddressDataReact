@@ -11,7 +11,8 @@ export const Menu = () => {
                 <NavLink to="addresses">Addresses</NavLink>
                 <NavLink to="formAddress">FormAddress</NavLink>
             </nav>
-            <hr/>
+            <hr className="lineMenuUp"/>
+            <hr className="lineMenuDown"/>
         </>
     )
 }

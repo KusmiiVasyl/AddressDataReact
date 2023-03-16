@@ -1,79 +1,62 @@
 import './FormAddress.css'
 import {useEffect, useState} from "react";
+import {AddressType} from "../../enums/AddressType";
+import {useNavigate, useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    createAddress,
+    getAddress,
+    resetAddressState,
+    updateAddress,
+    updateAddressState
+} from "../../store/addressSlice";
+import {Button} from "@mui/material";
 
-const AddressType = {
-    HOME: 'HOME',
-    OFFICE: 'OFFICE'
-}
-
-export function FormAddress({addAddress, editAddress}) {
-    const [country, setCountry] = useState('')
-    const [city, setCity] = useState('')
-    const [street, setStreet] = useState('')
-    const [typeAddress, setTypeAddress] = useState(AddressType.OFFICE)
+export function FormAddress() {
+    const {id} = useParams()
+    const dispatch = useDispatch()
+    const address = useSelector(state => state.address)
+    const navigate = useNavigate()
     const [messageAddressAction, setMessageAddressAction] = useState('')
 
     let selectTypeAddress = document.getElementById("selectTypeAddress")
+    let buttonSaveDisabled = false
 
     useEffect(() => {
-        if (editAddress) {
-            if (!isNaN(editAddress.id)) {
-                setMessageAddressAction(`Address id: ${editAddress.id} - is being edited now!`)
-            } else {
-                setMessageAddressAction('')
-            }
-            setCountry(editAddress.country)
-            setCity(editAddress.city)
-            setStreet(editAddress.street)
-            selectTypeAddress.value = editAddress.isHomeAddress ? AddressType.HOME : AddressType.OFFICE
+        if (id) {
+            dispatch(getAddress(id))
+            setMessageAddressAction(`Address id: ${id} - is being edited now!`)
         }
-    }, [editAddress, selectTypeAddress])
-
-
-    const resetFormValues = () => {
-        setCountry('')
-        setCity('')
-        setStreet('')
-        setTypeAddress(AddressType.OFFICE)
-        selectTypeAddress.value = AddressType.OFFICE
-        setMessageAddressAction('')
-        editAddress.id = NaN
-    }
+        return () => dispatch(resetAddressState())
+    }, [])
 
     const submitHandler = (event) => {
         event.preventDefault()
-        if (country && city && street) {
-            addAddress({
-                id: editAddress ? editAddress.id : NaN,
-                country,
-                city,
-                street,
-                isHomeAddress: typeAddress === AddressType.HOME ? true : false
-            })
-            resetFormValues()
+        if (address.country && address.city && address.street) {
+            if (id) {
+                dispatch(updateAddress(address))
+                navigate('../..', {relative: 'path'})
+            } else {
+                dispatch(createAddress(address))
+                navigate('../addresses', {relative: 'path'})
+            }
+            selectTypeAddress.value = AddressType.OFFICE
+            setMessageAddressAction('')
+            buttonSaveDisabled = true
         }
     }
 
     const checkFormInput = () => {
-        if (!country && !city && !street && !messageAddressAction) {
+        if (!address.country && !address.city && !address.street && !messageAddressAction) {
             setMessageAddressAction("Creating new address...")
         }
     }
 
     const onChangeFormInput = (nameInput, text) => {
-        switch (nameInput) {
-            case "country":
-                setCountry(text)
-                break
-            case "city":
-                setCity(text)
-                break
-            case "street":
-                setStreet(text)
-                break
-        }
+        dispatch(updateAddressState({[nameInput]: text}))
         checkFormInput()
     }
+
 
     return (
         <>
@@ -88,16 +71,22 @@ export function FormAddress({addAddress, editAddress}) {
                         <p>Type Address:</p>
                     </div>
                     <div className="formBlockInput">
-                        <input type="text" value={country}
+                        <input type="text" value={address.country}
                                onChange={(e) => onChangeFormInput("country", e.target.value)}/>
-                        <input type="text" value={city} onChange={(e) => onChangeFormInput("city", e.target.value)}/>
-                        <input type="text" value={street}
+                        <input type="text" value={address.city}
+                               onChange={(e) => onChangeFormInput("city", e.target.value)}/>
+                        <input type="text" value={address.street}
                                onChange={(e) => onChangeFormInput("street", e.target.value)}/>
-                        <select id="selectTypeAddress" onChange={(e) => setTypeAddress(e.target.value)}>
-                            <option value={AddressType.OFFICE}>Office</option>
-                            <option value={AddressType.HOME}>Home</option>
+                        <select id="selectTypeAddress"
+                                onChange={(e) => onChangeFormInput("typeAddress", e.target.value)}>
+                            <option value={AddressType.OFFICE}>
+                                Office
+                            </option>
+                            <option selected={address.typeAddress === AddressType.HOME} value={AddressType.HOME}>
+                                Home
+                            </option>
                         </select>
-                        <button type="submit">Submit</button>
+                        <Button type="submit" variant="outlined" disabled={buttonSaveDisabled}>save</Button>
                     </div>
                 </div>
             </form>

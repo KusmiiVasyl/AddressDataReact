@@ -2,41 +2,38 @@ import {useEffect, useState} from "react";
 import {Address} from "../Address";
 import './ListAddresses.css'
 import {AddressApi} from "../../api/addressApi";
+import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {deleteAddress} from "../../store/addressSlice";
+import {LinearProgress} from "@mui/material";
 
-
-const ADDRESSES_URL = 'https://64048a123bdc59fa8f3b247f.mockapi.io/api/address'
 
 export function ListAddresses() {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
     const [addresses, setAddresses] = useState([])
-    const [addressToEdit, setAddressToEdit] = useState(null)
     const [error, setError] = useState('')
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
+        getAddresses()
+    }, [isLoading])
+
+    const getAddresses = () => {
         AddressApi.getAll()
             .then((addresses) => setAddresses(addresses))
             .catch((error) => setError(error.message))
             .finally(() => setIsLoading(false))
-    }, [])
-
-    const addAddressHandler = (newAddress) => {
-        if (!newAddress.id) {
-            newAddress.id = addresses[addresses.length - 1].id + 1
-            setAddresses([...addresses, newAddress])
-            return
-        }
-        setAddresses(addresses.map(address => {
-            return (address.id === newAddress.id) ? newAddress : address
-        }))
     }
 
-    const editAddressHandler = (address) => {
-        setAddressToEdit(address)
+
+    const editAddressHandler = (id) => {
+        navigate(`item/${id}`, {relative: 'path'})
     }
 
     const deleteAddressHandler = (idAddress) => {
-        setAddresses(addresses.filter(address => address.id !== idAddress))
-        setAddressToEdit({id: NaN, country: '', city: '', street: '', isHomeAddress: false})
+        dispatch(deleteAddress(idAddress))
+        setIsLoading(true)
     }
 
     if (isLoading) {
@@ -44,6 +41,7 @@ export function ListAddresses() {
             <>
                 <div className="addresses">
                     <p className="loading">Loading...</p>
+                    <LinearProgress color="success" style={{margin: '60px auto', width: '60%'}}/>
                 </div>
             </>
         )
@@ -66,7 +64,6 @@ export function ListAddresses() {
                                                      editAddress={editAddressHandler}
                                                      deleteAddress={deleteAddressHandler}/>)}
             </div>
-            {/*<FormAddress addAddress={addAddressHandler} editAddress={addressToEdit}/>*/}
         </>
     )
 }
